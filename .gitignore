@@ -1,5 +1,7 @@
 .DS_Store
 .thumbs.db
+.idea
+.vscode
 node_modules/
 dist/
 npm-debug.log*
