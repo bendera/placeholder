@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-import Hello from '@/Hello.vue'
+import ImageParamsForm from '@/ImageParamsForm'
 
 Vue.use(VueRouter)
 
@@ -28,6 +28,6 @@ export default new VueRouter({
    */
 
   routes: [
-    { path: '/', component: Hello }
+    { path: '/', component: ImageParamsForm }
   ]
 })

@@ -1,30 +1,33 @@
 <template>
   <!-- Don't drop "q-app" class -->
   <div id="q-app">
-    <header></header>
-    <main>
-      <img src="~assets/quasar-logo-full.svg" alt="Quasar PWA">
-      <router-view></router-view>
-    </main>
+    <QLayout>
+      <QToolbar slot="header">
+        Placeholder image generator
+      </QToolbar>
+      <ImageParamsForm />
+    </QLayout>
   </div>
 </template>
 
 <script>
-/*
- * Root component
- */
-export default {}
+import {
+  QField,
+  QInput,
+  QLayout,
+  QToolbar,
+  QToolbarTitle
+} from 'quasar'
+import ImageParamsForm from './components/ImageParamsForm'
+
+export default {
+  components: {
+    QField,
+    QInput,
+    QLayout,
+    QToolbar,
+    QToolbarTitle,
+    ImageParamsForm
+  }
+}
 </script>
-
-<style lang="stylus">
-@import '~variables'
-
-main
-  text-align center
-  margin-top 40px
-
-header
-  margin 0
-  height 10px
-  background-color $primary
-</style>
