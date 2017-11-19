@@ -33,6 +33,12 @@
           v-model="caption"
           @change="updateImage()"
         />
+        <QInput
+          type="text"
+          float-label="Font family"
+          v-model="fontFamily"
+          @change="updateImage()"
+        />
         <QSelect
           radio
           float-label="Filetype"
@@ -103,6 +109,9 @@ export default {
       textColor: '#ffffff',
       backgroundColor: '#cccccc',
       caption: '',
+      fontFamily: 'Helvetica, Arial, sans-serif',
+      fontSize: 40,
+      fontAlign: 'center',
       filetype: 'png',
       dataURI: ''
     }
@@ -115,6 +124,7 @@ export default {
         textColor: this.textColor,
         backgroundColor: this.backgroundColor,
         caption: this.caption !== '' ? this.caption : `${this.width} x ${this.height}`,
+        fontFamily: this.fontFamily,
         filetype: this.filetype
       })
     }, 400),
