@@ -87,6 +87,14 @@
           readonly
           @focus="selectDataURI($event)"
         />
+        <a
+        :href="dataURI"
+        class="q-btn row inline flex-center q-focusable q-hoverable relative-position q-btn-rectangle q-btn-big bg-primary text-white"
+        :download="friendlyFilename"
+        >
+          <div class="desktop-only q-focus-helper"></div>
+          <span class="q-btn-inner row col flex-center">Download image</span>
+        </a>
       </QCardMain>
     </QCard>
   </div>
@@ -138,6 +146,26 @@ export default {
       fontAlign: 'center',
       filetype: 'png',
       dataURI: ''
+    }
+  },
+  computed: {
+    friendlyFilename () {
+      const fg = this.textColor.replace(/#/, '')
+      const bg = this.backgroundColor.replace(/#/, '')
+
+      let retval = `dummy_${this.width}x${this.height}_${fg}_${bg}`
+
+      if (this.caption !== '') {
+        let sanitizedCaption = this.caption.replace(/\s/g, '-')
+        sanitizedCaption = sanitizedCaption.replace(/[^A-Za-z0-9-]/g, '')
+        sanitizedCaption = sanitizedCaption.toLowerCase()
+
+        retval = `${retval}_${sanitizedCaption}`
+      }
+
+      retval = `${retval}.${this.filetype}`
+
+      return retval
     }
   },
   methods: {

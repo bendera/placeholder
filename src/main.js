@@ -18,7 +18,7 @@ Vue.config.productionTip = false
 Vue.use(Quasar) // Install Quasar Framework
 
 if (__THEME === 'mat') {
-  // require('quasar-extras/roboto-font')
+  require('quasar-extras/roboto-font')
 }
 import 'quasar-extras/material-icons'
 // import 'quasar-extras/ionicons'
