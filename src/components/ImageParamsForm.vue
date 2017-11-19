@@ -7,28 +7,31 @@
           type="number"
           float-label="Width"
           v-model="width"
+          @change="updateImage()"
         />
         <QInput
           type="number"
           float-label="Height"
           v-model="height"
+          @change="updateImage()"
         />
-        <QInput
-          type="text"
+        <QInputColor
+          type="color"
           float-label="Text color"
           v-model="textColor"
-          prefix="#"
+          @change="updateImage()"
         />
-        <QInput
-          type="text"
+        <QInputColor
+          type="color"
           float-label="Background color"
           v-model="backgroundColor"
-          prefix="#"
+          @change="updateImage()"
         />
         <QInput
           type="text"
           float-label="Caption"
           v-model="caption"
+          @change="updateImage()"
         />
         <QSelect
           radio
@@ -38,14 +41,8 @@
             {label: 'SVG', value: 'svg'},
             {label: 'PNG', value: 'png'}
           ]"
+          @change="updateImage()"
         />
-        <div class="button-wrapper">
-          <QBtn
-            color="primary"
-            big
-          >Generate</QBtn>
-        </div>
-
       </QCardMain>
     </QCard>
     <QCard>
@@ -53,7 +50,7 @@
       <QCardMain>
         <div id="canvas-demo"></div>
         <div class="image-preview">
-          <img :src="dataURI" alt="">
+          <img :src="dataURI" alt="preview image">
         </div>
         <QInput
           stack-label="Data URI"
@@ -75,9 +72,17 @@ import {
   QField,
   QInput,
   QOptionGroup,
-  QSelect
+  QSelect,
+  debounce
 } from 'quasar'
-import CanvasRenderer from '../lib/CanvasRenderer'
+import QInputColor from './QInputColor'
+import PNGRenderer from '../lib/PNGRenderer'
+import SVGREnderer from '../lib/SVGRenderer'
+
+const renderers = {
+  svg: new SVGREnderer(),
+  png: new PNGRenderer()
+}
 
 export default {
   components: {
@@ -88,41 +93,42 @@ export default {
     QField,
     QInput,
     QOptionGroup,
-    QSelect
+    QSelect,
+    QInputColor
   },
   data () {
     return {
       width: 600,
       height: 400,
-      textColor: 'ffffff',
-      backgroundColor: 'cccccc',
+      textColor: '#ffffff',
+      backgroundColor: '#cccccc',
       caption: '',
-      filetype: 'svg'
-    }
-  },
-  computed: {
-    dataURI () {
-      console.log('datauri computed')
-      const cr = new CanvasRenderer(this.width, this.height)
-
-      return cr.getDataURI()
+      filetype: 'png',
+      dataURI: ''
     }
   },
   methods: {
+    updateImage: debounce(function updateImageDebounced () {
+      this.dataURI = renderers[this.filetype].render({
+        width: this.width,
+        height: this.height,
+        textColor: this.textColor,
+        backgroundColor: this.backgroundColor,
+        caption: this.caption !== '' ? this.caption : `${this.width} x ${this.height}`,
+        filetype: this.filetype
+      })
+    }, 400),
     selectDataURI (event) {
       event.target.setSelectionRange(0, event.target.value.length)
     }
   },
   mounted () {
+    this.updateImage()
   }
 }
 </script>
 
 <style scoped>
-.image-params-form {
-  /*max-width: 600px;*/
-}
-
 .button-wrapper{
   display: flex;
   justify-content: center;
