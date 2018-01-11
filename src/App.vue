@@ -3,7 +3,10 @@
   <div id="q-app">
     <QLayout>
       <QToolbar slot="header">
-        Placeholder image generator
+        <q-toolbar-title>Placeholder image generator</q-toolbar-title>
+        <a href="https://github.com/bendera/holderimage" class="gh-url">
+          <q-icon name="ion-social-github" />
+        </a>
       </QToolbar>
       <ImageParamsForm />
     </QLayout>
@@ -12,6 +15,7 @@
 
 <script>
 import {
+  QIcon,
   QField,
   QInput,
   QLayout,
@@ -22,6 +26,7 @@ import ImageParamsForm from './components/ImageParamsForm'
 
 export default {
   components: {
+    QIcon,
     QField,
     QInput,
     QLayout,
@@ -31,3 +36,9 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.gh-url {
+  color: #fff;
+}
+</style>
