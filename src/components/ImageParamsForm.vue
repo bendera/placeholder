@@ -15,14 +15,14 @@
           v-model="height"
           @change="updateImage()"
         />
-        <QInputColor
-          type="color"
+        <QInput
+          type="text"
           float-label="Text color"
           v-model="textColor"
           @change="updateImage()"
         />
-        <QInputColor
-          type="color"
+        <QInput
+          type="text"
           float-label="Background color"
           v-model="backgroundColor"
           @change="updateImage()"
@@ -112,7 +112,6 @@ import {
   QSelect,
   debounce
 } from 'quasar'
-import QInputColor from './QInputColor'
 import PNGRenderer from '../lib/PNGRenderer'
 import SVGREnderer from '../lib/SVGRenderer'
 
@@ -130,8 +129,7 @@ export default {
     QField,
     QInput,
     QOptionGroup,
-    QSelect,
-    QInputColor
+    QSelect
   },
   data () {
     return {
