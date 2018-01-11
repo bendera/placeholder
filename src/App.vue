@@ -4,7 +4,7 @@
     <QLayout>
       <QToolbar slot="header">
         <q-toolbar-title>Placeholder image generator</q-toolbar-title>
-        <a href="https://github.com/bendera/holderimage" class="gh-url">
+        <a href="https://github.com/bendera/placeholder" class="gh-url">
           <q-icon name="ion-social-github" />
         </a>
       </QToolbar>
