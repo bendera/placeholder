@@ -27,6 +27,7 @@
           v-model="backgroundColor"
           @change="updateImage()"
         />
+        <QBtn @click="randomColors()">Random color</QBtn>
         <QInput
           type="text"
           float-label="Caption"
@@ -112,6 +113,8 @@ import {
   QSelect,
   debounce
 } from 'quasar'
+import randomColor from 'randomcolor'
+import Color from 'color'
 import PNGRenderer from '../lib/PNGRenderer'
 import SVGREnderer from '../lib/SVGRenderer'
 
@@ -168,6 +171,9 @@ export default {
   },
   methods: {
     updateImage: debounce(function updateImageDebounced () {
+      this.updateDataURI()
+    }, 400),
+    updateDataURI () {
       this.dataURI = renderers[this.filetype].render({
         width: this.width,
         height: this.height,
@@ -179,9 +185,21 @@ export default {
         fontWeight: this.fontWeight,
         filetype: this.filetype
       })
-    }, 400),
+    },
     selectDataURI (event) {
       event.target.setSelectionRange(0, event.target.value.length)
+    },
+    randomColors () {
+      this.backgroundColor = randomColor()
+
+      if (Color(this.backgroundColor).light()) {
+        this.textColor = '#000000'
+      }
+      else {
+        this.textColor = '#ffffff'
+      }
+
+      this.updateDataURI()
     }
   },
   mounted () {
