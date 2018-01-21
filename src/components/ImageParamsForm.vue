@@ -7,44 +7,37 @@
           type="number"
           float-label="Width"
           v-model="width"
-          @change="updateImage()"
         />
         <QInput
           type="number"
           float-label="Height"
           v-model="height"
-          @change="updateImage()"
         />
         <QInput
           type="text"
           float-label="Text color"
           v-model="textColor"
-          @change="updateImage()"
         />
         <QInput
           type="text"
           float-label="Background color"
           v-model="backgroundColor"
-          @change="updateImage()"
         />
         <QBtn @click="randomColors()">Random color</QBtn>
         <QInput
           type="text"
           float-label="Caption"
           v-model="caption"
-          @change="updateImage()"
         />
         <QInput
           type="text"
           float-label="Font family"
           v-model="fontFamily"
-          @change="updateImage()"
         />
         <QInput
           type="number"
           float-label="Font size"
           v-model="fontSize"
-          @change="updateImage()"
         />
         <QSelect
           radio
@@ -61,7 +54,6 @@
             {label: '800', value: '800'},
             {label: '900', value: '900'}
           ]"
-          @change="updateImage()"
         />
         <QSelect
           radio
@@ -71,7 +63,6 @@
             {label: 'SVG', value: 'svg'},
             {label: 'PNG', value: 'png'}
           ]"
-          @change="updateImage()"
         />
       </QCardMain>
     </QCard>
@@ -167,14 +158,9 @@ export default {
       retval = `${retval}.${this.filetype}`
 
       return retval
-    }
-  },
-  methods: {
-    updateImage: debounce(function updateImageDebounced () {
-      this.updateDataURI()
-    }, 400),
-    updateDataURI () {
-      this.dataURI = renderers[this.filetype].render({
+    },
+    rendererParams () {
+      return {
         width: this.width,
         height: this.height,
         textColor: this.textColor,
@@ -184,7 +170,20 @@ export default {
         fontSize: this.fontSize,
         fontWeight: this.fontWeight,
         filetype: this.filetype
-      })
+      }
+    }
+  },
+  watch: {
+    rendererParams () {
+      this.updateImage()
+    }
+  },
+  methods: {
+    updateImage: debounce(function updateImageDebounced () {
+      this.updateDataURI()
+    }, 400),
+    updateDataURI () {
+      this.dataURI = renderers[this.filetype].render(this.rendererParams)
     },
     selectDataURI (event) {
       event.target.setSelectionRange(0, event.target.value.length)
