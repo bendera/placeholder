@@ -37,6 +37,7 @@
       v-model="fontFamily"
     >
       <QAutocomplete
+        :filter="autocompleteFilter"
         :debounce="0"
         :static-data="{
           field: 'value',
@@ -139,6 +140,7 @@ import {
   QSelect,
   debounce
 } from 'quasar'
+import fuzzysearch from 'fuzzysearch'
 import randomColor from 'randomcolor'
 import Color from 'color'
 import PNGRenderer from '../lib/PNGRenderer'
@@ -234,6 +236,10 @@ export default {
       }
 
       this.updateDataURI()
+    },
+    autocompleteFilter (terms, { field, list }) {
+      const token = terms.toLowerCase()
+      return list.filter(item => fuzzysearch(token, item[field].toLowerCase()))
     }
   },
   mounted () {
