@@ -1,11 +1,16 @@
 <template>
   <!-- Don't drop "q-app" class -->
   <div id="q-app">
-    <QLayout>
+    <QLayout view="hHh Lpr lFf">
       <QToolbar slot="header">
-        <q-toolbar-title>Placeholder image generator</q-toolbar-title>
+        <QToolbarTitle>
+          <QIcon
+            name="photo"
+            style="font-size: 2rem; margin-right: 5px;"
+          />Placeholder image generator
+        </QToolbarTitle>
         <a href="https://github.com/bendera/placeholder" class="gh-url">
-          <q-icon name="ion-social-github" />
+          <QIcon name="ion-social-github" />
         </a>
       </QToolbar>
       <ImageParamsForm />

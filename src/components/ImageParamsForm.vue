@@ -23,7 +23,11 @@
           float-label="Background color"
           v-model="backgroundColor"
         />
-        <QBtn @click="randomColors()">Random color</QBtn>
+        <QBtn
+          icon="color_lens"
+          color="secondary"
+          @click="randomColors()"
+        >Random color</QBtn>
         <QInput
           type="text"
           float-label="Caption"
@@ -208,6 +212,12 @@ export default {
 </script>
 
 <style scoped>
+.image-params-form {
+  margin: 0 auto;
+  max-width: 90vw;
+  width: 500px;
+}
+
 .button-wrapper{
   display: flex;
   justify-content: center;
