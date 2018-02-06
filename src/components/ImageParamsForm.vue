@@ -105,6 +105,8 @@
       <img :src="dataURI" alt="preview image">
     </div>
     <QInput
+      prefix="&amp;lt;img&nbsp;src=&quot;"
+      suffix="&quot;&gt;"
       stack-label="Data URI"
       v-model="dataURI"
       readonly
