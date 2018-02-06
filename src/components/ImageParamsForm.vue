@@ -108,6 +108,7 @@
       v-model="dataURI"
       readonly
       @focus="selectDataURI($event)"
+      @click="selectDataURI($event)"
     />
     <a
     :href="dataURI"
