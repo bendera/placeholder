@@ -58,6 +58,7 @@
             {label: 'monospace', value: 'monospace'},
             {label: 'Open Sans', value: 'Open Sans'},
             {label: 'Palatino', value: 'Palatino'},
+            {label: 'Roboto', value: 'Roboto'},
             {label: 'serif', value: 'serif'},
             {label: 'sans-serif', value: 'sans-serif'},
             {label: 'system-ui', value: 'system-ui'},
