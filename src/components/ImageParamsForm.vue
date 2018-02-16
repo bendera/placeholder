@@ -131,6 +131,7 @@
       btn-download
     "
     :download="friendlyFilename"
+    v-ripple
     >
       <div class="desktop-only q-focus-helper"></div>
       <span class="q-btn-inner row col flex-center">Download image</span>
@@ -148,7 +149,8 @@ import {
   QInput,
   QOptionGroup,
   QSelect,
-  debounce
+  debounce,
+  Ripple
 } from 'quasar'
 import fuzzysearch from 'fuzzysearch'
 import randomColor from 'randomcolor'
@@ -171,6 +173,9 @@ export default {
     QInput,
     QOptionGroup,
     QSelect
+  },
+  directives: {
+    Ripple
   },
   data () {
     return {
