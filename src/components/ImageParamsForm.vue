@@ -250,6 +250,9 @@ export default {
   watch: {
     rendererParams () {
       this.updateImage()
+    },
+    imageQuality () {
+      this.updateImage()
     }
   },
   methods: {
