@@ -98,9 +98,26 @@
       v-model="filetype"
       :options="[
         {label: 'SVG', value: 'svg'},
-        {label: 'PNG', value: 'png'}
+        {label: 'PNG', value: 'png'},
+        {label: 'GIF', value: 'gif'},
+        {label: 'JPEG', value: 'jpg'},
+        {label: 'WEBP', value: 'webp', sublabel: '(Chrome only)'},
       ]"
     />
+    <SliderField
+      v-if="filetype === 'jpg' || filetype === 'webp'"
+      label="Image quality"
+    >
+      <QSlider
+        v-model="imageQuality"
+        :min="0"
+        :max="1"
+        :step="0.01"
+        :decimals="2"
+        label
+        label-always
+      />
+    </SliderField>
     <div class="image-preview">
       <img :src="dataURI" alt="preview image">
     </div>
@@ -149,6 +166,7 @@ import {
   QInput,
   QOptionGroup,
   QSelect,
+  QSlider,
   debounce,
   Ripple
 } from 'quasar'
@@ -157,6 +175,7 @@ import randomColor from 'randomcolor'
 import Color from 'color'
 import PNGRenderer from '../lib/PNGRenderer'
 import SVGREnderer from '../lib/SVGRenderer'
+import SliderField from './SliderField'
 
 const renderers = {
   svg: new SVGREnderer(),
@@ -165,6 +184,7 @@ const renderers = {
 
 export default {
   components: {
+    SliderField,
     QAutocomplete,
     QBtn,
     QCard,
@@ -172,7 +192,8 @@ export default {
     QCardTitle,
     QInput,
     QOptionGroup,
-    QSelect
+    QSelect,
+    QSlider
   },
   directives: {
     Ripple
@@ -189,7 +210,8 @@ export default {
       fontWeight: '400',
       fontAlign: 'center',
       filetype: 'png',
-      dataURI: ''
+      dataURI: '',
+      imageQuality: 0.92
     }
   },
   computed: {
