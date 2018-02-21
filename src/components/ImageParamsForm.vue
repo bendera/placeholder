@@ -100,12 +100,12 @@
         {label: 'SVG', value: 'svg'},
         {label: 'PNG', value: 'png'},
         {label: 'GIF', value: 'gif'},
-        {label: 'JPEG', value: 'jpg'},
+        {label: 'JPEG', value: 'jpeg'},
         {label: 'WEBP', value: 'webp', sublabel: '(Chrome only)'},
       ]"
     />
     <SliderField
-      v-if="filetype === 'jpg' || filetype === 'webp'"
+      v-if="filetype === 'jpeg' || filetype === 'webp'"
       label="Image quality"
     >
       <QSlider
@@ -173,13 +173,13 @@ import {
 import fuzzysearch from 'fuzzysearch'
 import randomColor from 'randomcolor'
 import Color from 'color'
-import PNGRenderer from '../lib/PNGRenderer'
+import BitmapRenderer from '../lib/BitmapRenderer'
 import SVGREnderer from '../lib/SVGRenderer'
 import SliderField from './SliderField'
 
 const renderers = {
   svg: new SVGREnderer(),
-  png: new PNGRenderer()
+  bitmap: new BitmapRenderer()
 }
 
 export default {
@@ -257,7 +257,15 @@ export default {
       this.updateDataURI()
     }, 400),
     updateDataURI () {
-      this.dataURI = renderers[this.filetype].render(this.rendererParams)
+      if (this.filetype === 'svg') {
+        this.dataURI = renderers.svg.render(this.rendererParams)
+      }
+      else if (this.filetype === 'gif' || this.filetype === 'png') {
+        this.dataURI = renderers.bitmap.render(this.rendererParams, `image/${this.filetype}`)
+      }
+      else if (this.filetype === 'jpeg' || this.filetype === 'webp') {
+        this.dataURI = renderers.bitmap.render(this.rendererParams, `image/${this.filetype}`, this.imageQuality)
+      }
     },
     selectDataURI (event) {
       event.target.setSelectionRange(0, event.target.value.length)

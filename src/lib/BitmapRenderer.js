@@ -1,10 +1,10 @@
-class PNGRenderer {
+class BitmapRenderer {
   constructor () {
     this.canvas = document.createElement('canvas')
     this.ctx = this.canvas.getContext('2d')
   }
 
-  render (data) {
+  render (data, ...opts) {
     this.canvas.setAttribute('width', data.width)
     this.canvas.setAttribute('height', data.height)
     this.ctx.clearRect(0, 0, data.width, data.height)
@@ -17,8 +17,16 @@ class PNGRenderer {
     this.ctx.fillStyle = data.textColor
     this.ctx.fillText(data.caption, data.width / 2, data.height / 2)
 
-    return this.canvas.toDataURL()
+    if (opts && opts.length === 1) {
+      return this.canvas.toDataURL(opts[0])
+    }
+    else if (opts && opts.length === 2) {
+      return this.canvas.toDataURL(opts[0], opts[1])
+    }
+    else {
+      return this.canvas.toDataURL()
+    }
   }
 }
 
-export default PNGRenderer
+export default BitmapRenderer
