@@ -96,16 +96,10 @@
       radio
       stack-label="Filetype"
       v-model="filetype"
-      :options="[
-        {label: 'SVG', value: 'svg'},
-        {label: 'PNG', value: 'png'},
-        {label: 'GIF', value: 'gif'},
-        {label: 'JPEG', value: 'jpeg'},
-        {label: 'WEBP', value: 'webp', sublabel: '(Chrome only)'},
-      ]"
+      :options="filetypeOptions"
     />
     <SliderField
-      v-if="filetype === 'jpeg' || filetype === 'webp'"
+      v-if="filetype === 'image/jpeg' || filetype === 'image/webp'"
       label="Image quality"
     >
       <QSlider
@@ -177,6 +171,28 @@ import BitmapRenderer from '../lib/BitmapRenderer'
 import SVGREnderer from '../lib/SVGRenderer'
 import SliderField from './SliderField'
 
+function filetypeOptions () {
+  const formats = [
+    {label: 'png', value: 'image/png'},
+    {label: 'gif', value: 'image/gif'},
+    {label: 'jpg', value: 'image/jpeg'},
+    {label: 'ico', value: 'image/ico'},
+    {label: 'webp', value: 'image/webp'}
+  ]
+
+  const retval = []
+
+  const canvas = document.createElement('canvas')
+
+  formats.forEach((e) => {
+    if (canvas.toDataURL(e.value).indexOf(e.value) !== -1) {
+      retval.push(e)
+    }
+  })
+
+  return retval
+};
+
 const renderers = {
   svg: new SVGREnderer(),
   bitmap: new BitmapRenderer()
@@ -209,9 +225,10 @@ export default {
       fontSize: 40,
       fontWeight: '400',
       fontAlign: 'center',
-      filetype: 'png',
+      filetype: 'image/png',
       dataURI: '',
-      imageQuality: 0.92
+      imageQuality: 0.92,
+      filetypeOptions: [{label: 'svg', value: 'image/svg'}]
     }
   },
   computed: {
@@ -260,14 +277,14 @@ export default {
       this.updateDataURI()
     }, 400),
     updateDataURI () {
-      if (this.filetype === 'svg') {
+      if (this.filetype === 'image/svg') {
         this.dataURI = renderers.svg.render(this.rendererParams)
       }
-      else if (this.filetype === 'gif' || this.filetype === 'png') {
-        this.dataURI = renderers.bitmap.render(this.rendererParams, `image/${this.filetype}`)
+      else if (this.filetype === 'image/jpeg' || this.filetype === 'image/webp') {
+        this.dataURI = renderers.bitmap.render(this.rendererParams, this.filetype, this.imageQuality)
       }
-      else if (this.filetype === 'jpeg' || this.filetype === 'webp') {
-        this.dataURI = renderers.bitmap.render(this.rendererParams, `image/${this.filetype}`, this.imageQuality)
+      else {
+        this.dataURI = renderers.bitmap.render(this.rendererParams, this.filetype)
       }
     },
     selectDataURI (event) {
@@ -291,6 +308,8 @@ export default {
     }
   },
   mounted () {
+    this.filetypeOptions = this.filetypeOptions.concat(filetypeOptions())
+
     this.updateImage()
   }
 }
