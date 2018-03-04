@@ -171,12 +171,21 @@ import BitmapRenderer from '../lib/BitmapRenderer'
 import SVGREnderer from '../lib/SVGRenderer'
 import SliderField from './SliderField'
 
+const extensions = {
+  'image/png': 'png',
+  'image/gif': 'gif',
+  'image/jpeg': 'jpg',
+  'image/x-icon': 'ico',
+  'image/webp': 'webp',
+  'image/svg+xml': 'svg'
+}
+
 function filetypeOptions () {
   const formats = [
     {label: 'png', value: 'image/png'},
     {label: 'gif', value: 'image/gif'},
     {label: 'jpg', value: 'image/jpeg'},
-    {label: 'ico', value: 'image/ico'},
+    {label: 'ico', value: 'image/x-icon'},
     {label: 'webp', value: 'image/webp'}
   ]
 
@@ -228,7 +237,7 @@ export default {
       filetype: 'image/png',
       dataURI: '',
       imageQuality: 0.92,
-      filetypeOptions: [{label: 'svg', value: 'image/svg'}]
+      filetypeOptions: [{label: 'svg', value: 'image/svg+xml'}]
     }
   },
   computed: {
@@ -246,7 +255,7 @@ export default {
         retval = `${retval}_${sanitizedCaption}`
       }
 
-      retval = `${retval}.${this.filetype}`
+      retval = `${retval}.${extensions[this.filetype]}`
 
       return retval
     },
@@ -277,7 +286,7 @@ export default {
       this.updateDataURI()
     }, 400),
     updateDataURI () {
-      if (this.filetype === 'image/svg') {
+      if (this.filetype === 'image/svg+xml') {
         this.dataURI = renderers.svg.render(this.rendererParams)
       }
       else if (this.filetype === 'image/jpeg' || this.filetype === 'image/webp') {
