@@ -10,22 +10,7 @@
       stack-label="Height"
       v-model="height"
     />
-    <QInput
-      type="text"
-      stack-label="Text color"
-      v-model="textColor"
-    />
-    <QInput
-      type="text"
-      stack-label="Background color"
-      v-model="backgroundColor"
-    />
-    <QBtn
-      :small="true"
-      icon="color_lens"
-      color="secondary"
-      @click="randomColors()"
-    >Random color</QBtn>
+    <ColorSelector @change="onColorChange" />
     <QInput
       type="text"
       stack-label="Caption"
@@ -153,7 +138,6 @@
 <script>
 import {
   QAutocomplete,
-  QBtn,
   QCard,
   QCardMain,
   QCardTitle,
@@ -165,11 +149,10 @@ import {
   Ripple
 } from 'quasar'
 import fuzzysearch from 'fuzzysearch'
-import randomColor from 'randomcolor'
-import Color from 'color'
 import BitmapRenderer from '../lib/BitmapRenderer'
 import SVGREnderer from '../lib/SVGRenderer'
 import SliderField from './SliderField'
+import ColorSelector from './ColorSelector'
 
 const extensions = {
   'image/png': 'png',
@@ -209,9 +192,9 @@ const renderers = {
 
 export default {
   components: {
+    ColorSelector,
     SliderField,
     QAutocomplete,
-    QBtn,
     QCard,
     QCardMain,
     QCardTitle,
@@ -299,17 +282,9 @@ export default {
     selectDataURI (event) {
       event.target.setSelectionRange(0, event.target.value.length)
     },
-    randomColors () {
-      this.backgroundColor = randomColor()
-
-      if (Color(this.backgroundColor).light()) {
-        this.textColor = '#000000'
-      }
-      else {
-        this.textColor = '#ffffff'
-      }
-
-      this.updateDataURI()
+    onColorChange (event) {
+      this.backgroundColor = event.backgroundColor
+      this.textColor = event.textColor
     },
     autocompleteFilter (terms, { field, list }) {
       const token = terms.toLowerCase()
