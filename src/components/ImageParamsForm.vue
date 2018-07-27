@@ -16,46 +16,7 @@
       stack-label="Caption"
       v-model="caption"
     />
-    <QInput
-      type="text"
-      stack-label="Font family"
-      v-model="fontFamily"
-    >
-      <QAutocomplete
-        :filter="autocompleteFilter"
-        :debounce="0"
-        :static-data="{
-          field: 'value',
-          list: [
-            {label: 'Arial', value: 'Arial'},
-            {label: 'Arial Black', value: 'Arial Black'},
-            {label: 'Bookman', value: 'Bookman'},
-            {label: 'Comic Sans MS', value: 'Comic Sans MS'},
-            {label: 'Courier', value: 'Courier'},
-            {label: 'Courier New', value: 'Courier new'},
-            {label: 'cursive', value: 'cursive'},
-            {label: 'fantasy', value: 'fantasy'},
-            {label: 'Garamond', value: 'Garamond'},
-            {label: 'Georgia', value: 'Georgia'},
-            {label: 'Helvetica', value: 'Helvetica'},
-            {label: 'Impact', value: 'Impact'},
-            {label: 'Material Icons', value: 'Material Icons', sublabel: 'https://material.io/icons'},
-            {label: 'monospace', value: 'monospace'},
-            {label: 'Open Sans', value: 'Open Sans'},
-            {label: 'Palatino', value: 'Palatino'},
-            {label: 'Roboto', value: 'Roboto'},
-            {label: 'serif', value: 'serif'},
-            {label: 'sans-serif', value: 'sans-serif'},
-            {label: 'system-ui', value: 'system-ui'},
-            {label: 'Times', value: 'Times'},
-            {label: 'Times New Roman', value: 'Times New Roman'},
-            {label: 'Trebuchet MS', value: 'Trebuchet MS'},
-            {label: 'Ubuntu', value: 'Ubuntu'},
-            {label: 'Verdana', value: 'Verdana'}
-          ]
-        }"
-      />
-    </QInput>
+    <FontFaceSelector v-model="fontFamily" />
     <QInput
       type="number"
       stack-label="Font size"
@@ -137,7 +98,6 @@
 
 <script>
 import {
-  QAutocomplete,
   QCard,
   QCardMain,
   QCardTitle,
@@ -148,10 +108,10 @@ import {
   debounce,
   Ripple
 } from 'quasar'
-import fuzzysearch from 'fuzzysearch'
 import BitmapRenderer from '../lib/BitmapRenderer'
 import SVGREnderer from '../lib/SVGRenderer'
 import SliderField from './SliderField'
+import FontFaceSelector from './FontFaceSelector'
 import ColorSelector from './ColorSelector'
 
 const extensions = {
@@ -193,8 +153,8 @@ const renderers = {
 export default {
   components: {
     ColorSelector,
+    FontFaceSelector,
     SliderField,
-    QAutocomplete,
     QCard,
     QCardMain,
     QCardTitle,
@@ -285,10 +245,6 @@ export default {
     onColorChange (event) {
       this.backgroundColor = event.backgroundColor
       this.textColor = event.textColor
-    },
-    autocompleteFilter (terms, { field, list }) {
-      const token = terms.toLowerCase()
-      return list.filter(item => fuzzysearch(token, item[field].toLowerCase()))
     }
   },
   mounted () {
