@@ -230,7 +230,7 @@ export default {
       textColor: '#ffffff',
       backgroundColor: '#cccccc',
       caption: '',
-      fontFamily: 'Helvetica',
+      fontFamily: 'sans-serif',
       fontSize: 40,
       fontWeight: '400',
       fontAlign: 'center',
