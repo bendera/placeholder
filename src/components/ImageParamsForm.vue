@@ -99,10 +99,7 @@
 <script>
 import {
   QCard,
-  QCardMain,
-  QCardTitle,
   QInput,
-  QOptionGroup,
   QSelect,
   QSlider,
   debounce,
@@ -156,10 +153,7 @@ export default {
     FontFaceSelector,
     SliderField,
     QCard,
-    QCardMain,
-    QCardTitle,
     QInput,
-    QOptionGroup,
     QSelect,
     QSlider
   },
