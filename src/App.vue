@@ -4,10 +4,12 @@
     <QLayout view="hHh Lpr lFf">
       <QToolbar slot="header">
         <QToolbarTitle>
-          <QIcon
-            name="photo"
-            style="font-size: 2rem; margin-right: 5px;"
-          />Placeholder image generator
+          <a href="https://placeholderimage.dev" class="home">
+            <QIcon
+              name="photo"
+              style="font-size: 2rem; margin-right: 5px;"
+            /><span>Placeholder image generator</span>
+          </a>
         </QToolbarTitle>
         <a href="https://github.com/bendera/placeholder" class="gh-url">
           <QIcon name="ion-social-github" />
@@ -43,6 +45,12 @@ export default {
 </script>
 
 <style scoped>
+.home {
+  align-items: center;
+  color: #fff;
+  display: flex;
+}
+
 .gh-url {
   color: #fff;
 }
