@@ -1,11 +1,16 @@
 <template>
   <q-page class="flex flex-center">
-    <img alt="Quasar logo" src="~assets/quasar-logo-full.svg">
+    <ImageParamsForm />
   </q-page>
 </template>
 
 <script>
+import ImageParamsForm from '../components/ImageParamsForm';
+
 export default {
   name: 'PageIndex',
+  components: {
+    ImageParamsForm,
+  },
 };
 </script>
