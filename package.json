@@ -54,7 +54,7 @@
     "postcss-loader": "^1.0.0",
     "progress-bar-webpack-plugin": "^1.10.0",
     "purify-css": "^1.2.6",
-    "shelljs": "^0.7.0",
+    "shelljs": "^0.8.5",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.1",
     "sw-precache-webpack-plugin": "^0.11.4",
