@@ -1,21 +1,26 @@
 import { component$ } from "@builder.io/qwik";
 import type { DocumentHead } from "@builder.io/qwik-city";
+import Header from "../components/Header";
+import Textfield from "../components/Textfield";
+import App from "../components/App";
 
 export default component$(() => {
   return (
     <>
-      <h1>Hi 👋</h1>
-      <div>
-        Can't wait to see what you build with qwik!
-        <br />
-        Happy coding.
+      <Header />
+      <div class="container flex justify-center">
+        <App>
+          <div class="flex w-full max-w-xl justify-center px-5">
+            <Textfield label="Width" />
+          </div>
+        </App>
       </div>
     </>
   );
 });
 
 export const head: DocumentHead = {
-  title: "Welcome to Qwik",
+  title: "Placeholder Image Generator",
   meta: [
     {
       name: "description",
