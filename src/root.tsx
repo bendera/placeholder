@@ -29,7 +29,7 @@ export default component$(() => {
         )}
         <RouterHead />
       </head>
-      <body lang="en" class="bg-white bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px]">
+      <body lang="en" class="h-full bg-gradient-to-br from-blue-400 via-sky-300 to-blue-400">
         <RouterOutlet />
         {!isDev && <ServiceWorkerRegister />}
       </body>
